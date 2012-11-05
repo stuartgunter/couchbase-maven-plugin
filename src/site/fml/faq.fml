@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faqs xmlns="http://maven.apache.org/FML/1.0.1"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/FML/1.0.1 http://maven.apache.org/xsd/fml-1.0.1.xsd"
+      id="FAQ" title="Frequently Asked Questions">
+    <part id="General">
+        <faq id="question1">
+            <question>Why do I need to use this plugin?</question>
+            <answer>
+                <p>
+                    Some projects require integration tests to be written against running instances of Couchbase, which
+                    in turn requires environment setup &amp; teardown as is typical with most integration tests. This plugin
+                    facilitates this by providing goals to create and delete buckets which can then be used for testing.
+                </p>
+            </answer>
+        </faq>
+        <faq id="question4">
+            <question>Can I start / stop Couchbase Server using this plugin?</question>
+            <answer>
+                <p>
+                    No. Couchbase Server does not currently (v1.8) provide a simple mechanism to start / stop an instance
+                    with custom configuration (e.g. a specific port). This means that parallel builds might step on
+                    each others' toes if they're starting / stopping the same instance of Couchbase Server. A safer approach
+                    is to provide 'sandbox' buckets for each build, which is facilitated via the create-bucket and
+                    delete-bucket goals.
+                </p>
+            </answer>
+        </faq>
+    </part>
+</faqs>

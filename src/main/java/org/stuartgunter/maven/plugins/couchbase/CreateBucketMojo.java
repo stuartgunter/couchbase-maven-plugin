@@ -12,21 +12,39 @@ import org.apache.maven.plugins.annotations.Parameter;
 @Mojo(name = "create-bucket", requiresProject = false)
 public class CreateBucketMojo extends AbstractCouchbaseMojo {
 
+    /**
+     * The name of the bucket to create
+     */
     @Parameter(required = true)
     private String bucketName;
 
+    /**
+     * The type of bucket to create
+     */
     @Parameter(defaultValue = "memcached")
     private String bucketType;
 
+    /**
+     * The RAM quota to assign to the bucket
+     */
     @Parameter(defaultValue = "100")
     private String ramQuotaMB;
 
+    /**
+     * The number of replicas to use for this bucket (only relevant for couchbase buckets)
+     */
     @Parameter(defaultValue = "1")
     private String replicaNumber;
 
+    /**
+     * The auth type to use
+     */
     @Parameter(defaultValue = "none")
     private String authType;
 
+    /**
+     * The proxy port to assign to this bucket
+     */
     @Parameter(required = true)
     private String proxyPort;
 

@@ -12,6 +12,9 @@ import org.apache.maven.plugins.annotations.Parameter;
 @Mojo(name = "delete-bucket", requiresProject = false)
 public class DeleteBucketMojo extends AbstractCouchbaseMojo {
 
+    /**
+     * The name of the bucket to delete
+     */
     @Parameter(required = true)
     private String bucketName;
 
