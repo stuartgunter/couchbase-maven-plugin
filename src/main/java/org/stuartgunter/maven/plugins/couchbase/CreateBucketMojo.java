@@ -1,5 +1,6 @@
 package org.stuartgunter.maven.plugins.couchbase;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -56,5 +57,35 @@ public class CreateBucketMojo extends AbstractCouchbaseMojo {
         logOutcome(successful,
                 "Created bucket '" + bucketName + "'",
                 "Unable to create bucket '" + bucketName + "'");
+    }
+
+    @VisibleForTesting
+    void setBucketName(String bucketName) {
+        this.bucketName = bucketName;
+    }
+
+    @VisibleForTesting
+    void setBucketType(String bucketType) {
+        this.bucketType = bucketType;
+    }
+
+    @VisibleForTesting
+    void setRamQuotaMB(String ramQuotaMB) {
+        this.ramQuotaMB = ramQuotaMB;
+    }
+
+    @VisibleForTesting
+    void setReplicaNumber(String replicaNumber) {
+        this.replicaNumber = replicaNumber;
+    }
+
+    @VisibleForTesting
+    void setAuthType(String authType) {
+        this.authType = authType;
+    }
+
+    @VisibleForTesting
+    void setProxyPort(String proxyPort) {
+        this.proxyPort = proxyPort;
     }
 }

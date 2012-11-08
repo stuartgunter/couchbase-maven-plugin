@@ -1,5 +1,6 @@
 package org.stuartgunter.maven.plugins.couchbase;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -45,5 +46,10 @@ public abstract class AbstractCouchbaseMojo extends AbstractMojo {
         } else {
             getLog().info(failMsg);
         }
+    }
+
+    @VisibleForTesting
+    void setFailOnError(boolean failOnError) {
+        this.failOnError = failOnError;
     }
 }
