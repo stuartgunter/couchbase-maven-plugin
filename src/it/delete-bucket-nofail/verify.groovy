@@ -6,4 +6,4 @@ assert curlOutput.contains("HTTP/1.1 404 Object Not Found")
 File buildLog = new File(basedir, 'build.log')
 assert buildLog.exists()
 
-assert buildLog.text.contains("[INFO] Unable to delete bucket 'some-fake-bucket'")
+assert buildLog.text.contains("[ERROR] Unable to delete bucket 'some-fake-bucket'")

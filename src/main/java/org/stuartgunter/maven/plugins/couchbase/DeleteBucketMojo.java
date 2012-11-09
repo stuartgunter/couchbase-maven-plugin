@@ -21,11 +21,12 @@ public class DeleteBucketMojo extends AbstractCouchbaseMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        final boolean successful = getCouchbaseClient().deleteBucket(bucketName);
-
-        logOutcome(successful,
-                "Deleted bucket '" + bucketName + "'",
-                "Unable to delete bucket '" + bucketName + "'");
+        try {
+            getCouchbaseClient().deleteBucket(bucketName);
+            getLog().info("Deleted bucket '" + bucketName + "'");
+        } catch (CouchbaseException ex) {
+            logFailure(ex);
+        }
     }
 
     @VisibleForTesting

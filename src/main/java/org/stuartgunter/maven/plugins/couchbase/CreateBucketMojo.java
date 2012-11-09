@@ -51,12 +51,12 @@ public class CreateBucketMojo extends AbstractCouchbaseMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        final boolean successful = getCouchbaseClient().createBucket(bucketName, bucketType,
-                authType, ramQuotaMB, replicaNumber, proxyPort);
-
-        logOutcome(successful,
-                "Created bucket '" + bucketName + "'",
-                "Unable to create bucket '" + bucketName + "'");
+        try {
+            getCouchbaseClient().createBucket(bucketName, bucketType, authType, ramQuotaMB, replicaNumber, proxyPort);
+            getLog().info("Created bucket '" + bucketName + "'");
+        } catch (CouchbaseException ex) {
+            logFailure(ex);
+        }
     }
 
     @VisibleForTesting

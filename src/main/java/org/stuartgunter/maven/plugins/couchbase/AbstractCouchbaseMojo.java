@@ -5,6 +5,8 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
 
+import java.util.Map;
+
 /**
  * This class provides some common functionality that all Couchbase Mojos will benefit from.
  */
@@ -38,13 +40,14 @@ public abstract class AbstractCouchbaseMojo extends AbstractMojo {
         return new CouchbaseRestClient(host, username, password, getLog());
     }
 
-    protected void logOutcome(boolean successful, String successMsg, String failMsg) throws MojoExecutionException {
-        if (successful) {
-            getLog().info(successMsg);
-        } else if (failOnError) {
-            throw new MojoExecutionException(failMsg);
+    protected void logFailure(CouchbaseException ex) throws MojoExecutionException {
+        if (failOnError) {
+            throw new MojoExecutionException(ex.getMessage(), ex);
         } else {
-            getLog().info(failMsg);
+            getLog().error(ex.getMessage());
+            for (Map.Entry<String, String> error : ex.getErrors().entrySet()) {
+                getLog().error("\t" + error.getKey() + ":\t" + error.getValue());
+            }
         }
     }
 
