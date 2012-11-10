@@ -2,14 +2,40 @@
 <project name="Couchbase Maven Plugin" xmlns="http://maven.apache.org/DECORATION/1.3.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/DECORATION/1.3.0 http://maven.apache.org/xsd/decoration-1.3.0.xsd">
+
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.3.0</version>
+    </skin>
+
+    <bannerLeft>
+        <name>${project.name}</name>
+    </bannerLeft>
+
+    <custom>
+        <fluidoSkin>
+            <gitHub>
+                <projectId>stuartgunter/couchbase-maven-plugin</projectId>
+                <ribbonOrientation>right</ribbonOrientation>
+            </gitHub>
+        </fluidoSkin>
+    </custom>
+
     <body>
         <menu name="Overview">
             <item name="Introduction" href="index.html"/>
             <item name="Goals" href="plugin-info.html"/>
-            <item name="Usage" href="usage.html"/>
+            <!--<item name="Usage" href="usage.html"/>-->
             <item name="FAQ" href="faq.html"/>
         </menu>
 
         <menu ref="reports"/>
+
+        <footer>
+	      <div class="row span16">Apache Maven, Apache, the Apache feather logo, and the Apache Maven project logos are trademarks of The Apache Software Foundation.
+	      Couchbase, Couchbase Server, and Membase are trademarks of Couchbase, Inc.
+          All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+	    </footer>
     </body>
 </project>
