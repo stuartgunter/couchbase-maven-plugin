@@ -15,36 +15,48 @@ public class CreateBucketMojo extends AbstractCouchbaseMojo {
 
     /**
      * The name of the bucket to create
+     *
+     * @since 1.0.0
      */
     @Parameter(required = true)
     private String bucketName;
 
     /**
      * The type of bucket to create
+     *
+     * @since 1.0.0
      */
     @Parameter(defaultValue = "memcached")
     private String bucketType;
 
     /**
      * The RAM quota to assign to the bucket
+     *
+     * @since 1.0.0
      */
     @Parameter(defaultValue = "100")
     private String ramQuotaMB;
 
     /**
      * The number of replicas to use for this bucket (only relevant for couchbase buckets)
+     *
+     * @since 1.0.0
      */
     @Parameter(defaultValue = "1")
     private String replicaNumber;
 
     /**
      * The auth type to use
+     *
+     * @since 1.0.0
      */
     @Parameter(defaultValue = "none")
     private String authType;
 
     /**
      * The proxy port to assign to this bucket
+     *
+     * @since 1.0.0
      */
     @Parameter(required = true)
     private String proxyPort;

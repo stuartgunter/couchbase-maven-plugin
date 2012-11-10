@@ -14,24 +14,32 @@ public abstract class AbstractCouchbaseMojo extends AbstractMojo {
 
     /**
      * The Couchbase Server host to connect to (e.g. "http://localhost:8091")
+     *
+     * @since 1.0.0
      */
     @Parameter(property = "couchbase.host", required = true)
     protected String host;
 
     /**
      * The username to connect to Couchbase Server
+     *
+     * @since 1.0.0
      */
     @Parameter(property = "couchbase.username", required = true)
     protected String username;
 
     /**
      * The password to connect to Couchbase Server
+     *
+     * @since 1.0.0
      */
     @Parameter(property = "couchbase.password", required = true)
     protected String password;
 
     /**
      * Indicates whether the build should fail in the event of an error
+     *
+     * @since 1.0.0
      */
     @Parameter(defaultValue = "true")
     private boolean failOnError;

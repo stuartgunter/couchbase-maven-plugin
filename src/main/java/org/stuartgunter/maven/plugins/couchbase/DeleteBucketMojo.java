@@ -15,6 +15,8 @@ public class DeleteBucketMojo extends AbstractCouchbaseMojo {
 
     /**
      * The name of the bucket to delete
+     *
+     * @since 1.0.0
      */
     @Parameter(required = true)
     private String bucketName;
