@@ -9,8 +9,12 @@ import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.core.util.Base64;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.apache.maven.plugin.logging.Log;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 
 import javax.ws.rs.core.MultivaluedMap;
+import java.util.Collections;
+import java.util.Map;
 
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 import static javax.ws.rs.core.Response.Status.Family.SUCCESSFUL;
@@ -59,9 +63,9 @@ public class CouchbaseRestClient {
      * @param ramQuotaMB The RAM quota to assign to this bucket
      * @param replicaNumber The number of replicas for this bucket (only valid for couchbase buckets)
      * @param proxyPort The proxy port for this bucket
-     * @return True if successful; otherwise false.
+     * @throws CouchbaseException if the Couchbase request returns unsuccessfully
      */
-    public boolean createBucket(String bucketName, String bucketType,
+    public void createBucket(String bucketName, String bucketType,
                                 String authType, String ramQuotaMB,
                                 String replicaNumber, String proxyPort) {
 
@@ -76,18 +80,37 @@ public class CouchbaseRestClient {
         ClientResponse response = createWebResource("/pools/default/buckets")
                 .post(ClientResponse.class, formData);
 
-        return (response.getClientResponseStatus().getFamily() == SUCCESSFUL);
+        if (response.getClientResponseStatus().getFamily() != SUCCESSFUL) {
+            throw new CouchbaseException("Unable to create bucket '" + bucketName + "'",
+                    getErrors(response.getEntity(String.class)));
+        }
     }
 
     /**
      * Deletes a bucket
      * @param bucketName The name of the bucket to delete
-     * @return True if successful; otherwise false.
+     * @throws CouchbaseException if the Couchbase request returns unsuccessfully
      */
-    public boolean deleteBucket(String bucketName) {
+    public void deleteBucket(String bucketName) {
         ClientResponse response = createWebResource("/pools/default/buckets/" + bucketName)
                 .delete(ClientResponse.class);
 
-        return (response.getClientResponseStatus().getFamily() == SUCCESSFUL);
+        if (response.getClientResponseStatus().getFamily() != SUCCESSFUL) {
+            throw new CouchbaseException("Unable to delete bucket '" + bucketName + "'",
+                    getErrors(response.getEntity(String.class)));
+        }
+    }
+
+    private Map<String, String> getErrors(String responseBody) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            Map<String, Object> responseData = objectMapper.readValue(responseBody,
+                    new TypeReference<Map<String, Object>>() {});
+
+            return (Map<String, String>) responseData.get("errors");
+        } catch (Exception ex) {
+            return Collections.emptyMap();
+        }
     }
 }

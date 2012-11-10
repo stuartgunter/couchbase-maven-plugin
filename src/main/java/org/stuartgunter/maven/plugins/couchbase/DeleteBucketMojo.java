@@ -1,5 +1,6 @@
 package org.stuartgunter.maven.plugins.couchbase;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -20,10 +21,16 @@ public class DeleteBucketMojo extends AbstractCouchbaseMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        final boolean successful = getCouchbaseClient().deleteBucket(bucketName);
+        try {
+            getCouchbaseClient().deleteBucket(bucketName);
+            getLog().info("Deleted bucket '" + bucketName + "'");
+        } catch (CouchbaseException ex) {
+            logFailure(ex);
+        }
+    }
 
-        logOutcome(successful,
-                "Deleted bucket '" + bucketName + "'",
-                "Unable to delete bucket '" + bucketName + "'");
+    @VisibleForTesting
+    void setBucketName(String bucketName) {
+        this.bucketName = bucketName;
     }
 }
