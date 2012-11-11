@@ -17,7 +17,7 @@
     <name>Couchbase Maven Plugin</name>
     <description>Provides support for executing administrative operations against a running instance of Couchbase
     </description>
-    <url>https://github.com/stuartgunter/couchbase-maven-plugin</url>
+    <url>http://stuartgunter.github.com/couchbase-maven-plugin</url>
 
     <organization>
         <name>Stuart Gunter</name>
