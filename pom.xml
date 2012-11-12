@@ -46,13 +46,6 @@
         <developerConnection>scm:git:git@github.com:stuartgunter/couchbase-maven-plugin.git</developerConnection>
     </scm>
 
-    <distributionManagement>
-        <site>
-            <id>s3.site</id>
-            <url>s3://docs.stuartgunter.org/couchbase-maven-plugin</url>
-        </site>
-    </distributionManagement>
-
     <issueManagement>
         <url>https://github.com/stuartgunter/couchbase-maven-plugin/issues</url>
         <system>GitHub Issues</system>
